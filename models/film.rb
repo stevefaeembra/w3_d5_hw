@@ -30,6 +30,13 @@ class Film
     $logger.warn("Deleted all films!!!")
   end
 
+  def self.get(id)
+    sql = "SELECT * from films where id=$1"
+    params = [id]
+    result = SqlRunner.run(sql, params).first
+    Film.new(result)
+  end
+
   def self.get_all
     sql = "SELECT * FROM films;"
     SqlRunner.run(sql).map {|hash| Film.new(hash)}

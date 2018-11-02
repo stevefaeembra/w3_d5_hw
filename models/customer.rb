@@ -17,6 +17,20 @@ class Customer
     @funds = options["funds"].to_f
   end
 
+  def spend(amount)
+    # reduce funds by certain amount
+    @funds -= amount
+    $logger.debug("Customer #{@id} funds now at #{@funds}")
+    update()
+  end
+
+  def self.get(id)
+    sql = "SELECT * from customers where id=$1"
+    params = [id]
+    result = SqlRunner.run(sql, params).first
+    Customer.new(result)
+  end
+
   def save
     sql = "INSERT INTO customers (name, funds) values ($1,$2) returning *"
     params = [@name, @funds]

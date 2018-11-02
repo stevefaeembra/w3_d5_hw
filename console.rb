@@ -42,6 +42,14 @@ film3.save()
 film1.price *= 1.10
 film1.update()
 
+# get arbitrary film
+filmz = Film.get(film1.id)
+$logger.debug("Load film : #{filmz}")
+
+#get arbitrary customer
+customerz = Customer.get(customer1.id)
+$logger.debug("Load customer: #{ customerz }")
+
 # lets get some Tickets
 
 ticket1 = Ticket.new({"film_id" => film1.id, "customer_id" => customer1.id})
