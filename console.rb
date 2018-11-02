@@ -8,6 +8,7 @@ require("logger")
 $logger = Logger.new(STDOUT)
 $logger.level = Logger::DEBUG
 
+Ticket.delete_all()
 Customer.delete_all()
 Film.delete_all()
 
@@ -55,3 +56,11 @@ ticket5 = Ticket.new({"film_id" => film3.id, "customer_id" => customer1.id})
 ticket5.save
 ticket6 = Ticket.new({"film_id" => film3.id, "customer_id" => customer3.id})
 ticket6.save
+
+# get movies from customer
+movie_list = customer1.films()
+$logger.debug("#{p movie_list}")
+
+# get customers for a movie
+customer_list = film1.customers()
+$logger.debug("#{p customer_list}")

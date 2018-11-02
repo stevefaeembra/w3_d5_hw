@@ -54,4 +54,22 @@ class Film
     $logger.debug("Updated film with id #{@id}")
   end
 
+  def customers
+    sql = '-- film to many customers
+
+            select
+	            customers.*
+            from
+	            films
+	            inner join tickets on films.id = tickets.film_id
+	            inner join customers on tickets.customer_id = customers.id
+            where
+	            films.id = $1
+            order by
+	            films.id asc
+    '
+    params = [@id]
+    results = SqlRunner.run(sql, params)
+    results.map {|hash| Customer.new(hash)}
+  end
 end
