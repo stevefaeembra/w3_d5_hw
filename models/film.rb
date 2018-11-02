@@ -61,6 +61,23 @@ class Film
     $logger.debug("Updated film with id #{@id}")
   end
 
+  def number_of_customers
+    sql = '
+      select
+        count(customers.*)
+      from
+        films
+        inner join tickets on films.id = tickets.film_id
+        inner join customers on tickets.customer_id = customers.id
+      where
+        film_id = $1
+    '
+    params = [@id]
+    result = SqlRunner.run(sql, params).first
+    p result
+    result['count'].to_i
+  end
+
   def customers
     sql = '-- film to many customers
 

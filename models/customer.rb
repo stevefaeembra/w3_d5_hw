@@ -30,6 +30,13 @@ class Customer
     Customer.new(result)
   end
 
+  def get_number_tickets
+    sql = "select count(*) from tickets where customer_id = $1"
+    params = [@id]
+    result = SqlRunner.run(sql,params).first
+    result['count'].to_i
+  end
+
   def save
     sql = "INSERT INTO customers (name, funds) values ($1,$2) returning *"
     params = [@name, @funds]

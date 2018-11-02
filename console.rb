@@ -72,3 +72,9 @@ $logger.debug("#{p movie_list}")
 # get customers for a movie
 customer_list = film1.customers()
 $logger.debug("#{p customer_list}")
+
+# number of tickets
+$logger.debug("customer1 has #{customer1.get_number_tickets()} tickets")
+
+# number of customers for a film
+$logger.debug("film2 has #{film2.number_of_customers()} customers")
