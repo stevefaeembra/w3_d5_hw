@@ -21,6 +21,7 @@ class Customer
     sql = "INSERT INTO customers (name, funds) values ($1,$2) returning *"
     params = [@name, @funds]
     @id = SqlRunner.run_insert(sql,params)
+    $logger.debug("Inserted new Customer with id #{@id}")
   end
 
   def self.delete_all
@@ -47,8 +48,8 @@ class Customer
   end
 
   def update
-    sql = "UPDATE customers SET (name, funds) = ($1,$2);"
-    params = [@name, @funds]
+    sql = "UPDATE customers SET (name, funds) = ($1,$2) WHERE id=$3;"
+    params = [@name, @funds, @id]
     SqlRunner.run(sql, params)
     $logger.debug("Updated customer with id #{@id}")
   end

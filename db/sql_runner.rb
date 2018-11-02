@@ -13,4 +13,12 @@ class SqlRunner
     return result
   end
 
+  def self.run_insert(sql, values = [])
+    # like run, but returns the id of the first Hash
+    # the insert sql MUST use 'returning' clause
+    # so we can store it in the original object
+    result = self.run(sql, values)
+    result.first["id"].to_i
+  end
+
 end
