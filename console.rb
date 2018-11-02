@@ -2,6 +2,7 @@
 require("pry")
 require_relative('models/customer')
 require_relative('models/film')
+require_relative('models/tickets')
 require("logger")
 
 $logger = Logger.new(STDOUT)
@@ -39,3 +40,18 @@ film3.save()
 
 film1.price *= 1.10
 film1.update()
+
+# lets get some Tickets
+
+ticket1 = Ticket.new({"film_id" => film1.id, "customer_id" => customer1.id})
+ticket1.save
+ticket2 = Ticket.new({"film_id" => film1.id, "customer_id" => customer2.id})
+ticket2.save
+ticket3 = Ticket.new({"film_id" => film1.id, "customer_id" => customer3.id})
+ticket3.save
+ticket4 = Ticket.new({"film_id" => film2.id, "customer_id" => customer1.id})
+ticket4.save
+ticket5 = Ticket.new({"film_id" => film3.id, "customer_id" => customer1.id})
+ticket5.save
+ticket6 = Ticket.new({"film_id" => film3.id, "customer_id" => customer3.id})
+ticket6.save
