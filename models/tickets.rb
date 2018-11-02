@@ -21,6 +21,11 @@ class Ticket
     params = [@customer_id, @film_id]
     @id = SqlRunner.run_insert(sql,params)
     $logger.debug("Inserted new Ticket with id #{@id}")
+    # get price of ticket for given film id and charge customer
+    price = Film.get(@film_id).price
+    customer = Customer.get(@customer_id)
+    customer.spend(price)
+    customer.update()
   end
 
   def self.delete_all
@@ -33,6 +38,7 @@ class Ticket
     sql = "SELECT * FROM tickets;"
     SqlRunner.run(sql).map {|hash| Ticket.new(hash)}
   end
+
 
   def delete
     if !@id

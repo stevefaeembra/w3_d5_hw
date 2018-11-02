@@ -21,7 +21,6 @@ class Customer
     # reduce funds by certain amount
     @funds -= amount
     $logger.debug("Customer #{@id} funds now at #{@funds}")
-    update()
   end
 
   def self.get(id)
